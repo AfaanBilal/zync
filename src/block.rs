@@ -8,6 +8,7 @@
  */
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
+use std::time::Instant;
 
 use crate::{transaction::Transaction, utils::timestamp};
 
@@ -49,6 +50,8 @@ impl Block {
     }
 
     pub fn mine_block(&mut self, difficulty: u32) {
+        let start = Instant::now();
+
         let target = "0".repeat(difficulty as usize);
 
         while !self.hash.starts_with(&target) {
@@ -56,6 +59,11 @@ impl Block {
             self.hash = self.calculate_hash();
         }
 
-        println!("Block mined! ID: {} Hash: {}", self.id, self.hash);
+        println!(
+            "Block mined! ID: {} Hash: {} Time: {:?}",
+            self.id,
+            self.hash,
+            start.elapsed()
+        );
     }
 }
