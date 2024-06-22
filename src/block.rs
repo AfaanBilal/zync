@@ -60,10 +60,10 @@ impl Block {
         }
 
         println!(
-            "Block mined! ID: {} Hash: {} Time: {:?}",
+            "Block mined! ID: {} Time: {:?} Hash: {}",
             self.id,
+            start.elapsed(),
             self.hash,
-            start.elapsed()
         );
     }
 }
