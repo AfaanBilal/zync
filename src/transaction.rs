@@ -18,11 +18,12 @@ pub struct Transaction {
     pub from: String,
     pub to: String,
     pub amount: u64,
+    pub note: Option<String>,
 }
 
 impl Transaction {
-    pub fn new(from: String, to: String, amount: u64) -> Self {
-        println!("[TXN] {from: >10} -> {to: >10}: {amount: >5}");
+    pub fn new(from: String, to: String, amount: u64, note: Option<String>) -> Self {
+        println!("[TXN] {from: >10} -> {to: >10}: {amount: >5} Note: {note:?}");
 
         Transaction {
             id: OsRng.next_u64(),
@@ -30,6 +31,7 @@ impl Transaction {
             from,
             to,
             amount,
+            note,
         }
     }
 }
