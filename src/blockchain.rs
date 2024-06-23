@@ -8,7 +8,7 @@
  */
 use serde::{Deserialize, Serialize};
 
-use crate::{block::Block, transaction::Transaction, utils::timestamp};
+use crate::{block::Block, transaction::Transaction};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Blockchain {
@@ -50,14 +50,27 @@ impl Blockchain {
         self.chain.push(block);
 
         // Reset the pending transactions and add miner reward
-        let miner_reward = Transaction {
-            id: 0,
-            timestamp: timestamp(),
-            from: String::from("System"),
-            to: miner_reward_address,
-            amount: self.mining_reward,
-        };
+        let miner_reward = Transaction::new(
+            String::from("[System]"),
+            miner_reward_address,
+            self.mining_reward,
+        );
 
         self.pending_transactions = vec![miner_reward];
+    }
+
+    pub fn get_balance(&self, address: &str) -> u64 {
+        self.chain
+            .iter()
+            .flat_map(|block| &block.data)
+            .fold(0, |balance, transaction| {
+                if transaction.from == address {
+                    balance - transaction.amount
+                } else if transaction.to == address {
+                    balance + transaction.amount
+                } else {
+                    balance
+                }
+            })
     }
 }
