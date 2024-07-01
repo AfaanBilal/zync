@@ -54,6 +54,7 @@ impl Blockchain {
             String::from("[System]"),
             miner_reward_address,
             self.mining_reward,
+            Some(String::from("Mining Reward")),
         );
 
         self.pending_transactions = vec![miner_reward];

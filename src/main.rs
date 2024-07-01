@@ -25,18 +25,21 @@ fn main() {
         system.clone(),
         alice.clone(),
         100,
+        Some(String::from("Initial balance")),
     ));
 
     blockchain.add_transaction(transaction::Transaction::new(
         system.clone(),
         bob.clone(),
         100,
+        Some(String::from("Initial balance")),
     ));
 
     blockchain.add_transaction(transaction::Transaction::new(
         system.clone(),
         charlie.clone(),
         100,
+        Some(String::from("Initial balance")),
     ));
 
     blockchain.mine(system.clone());
@@ -45,18 +48,21 @@ fn main() {
         alice.clone(),
         bob.clone(),
         50,
+        None,
     ));
 
     blockchain.add_transaction(transaction::Transaction::new(
         bob.clone(),
         charlie.clone(),
         75,
+        None,
     ));
 
     blockchain.add_transaction(transaction::Transaction::new(
         charlie.clone(),
         alice.clone(),
         80,
+        None,
     ));
 
     blockchain.mine(alice.clone());
